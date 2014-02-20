@@ -22,18 +22,30 @@ c = [{x:0.285, y:0}, {y:0, x:1 - 1.6180339887}, {x: 0.4, y: 0.6}, {x: 0.285, y: 
 draw = (p, zoom, c) ->
 	ctx.fillStyle = "rgb(0,0,0)"
 	i = 0
-	while i < canvas.width
+	img = new Image()
+	img.width = 800
+	img.height = 800
+	img_ctx = ctx.getImageData(0, 0, img.width, img.height)
+
+	while i < img.width
 		j = 0
-		while j < canvas.height
-			z = x: p.x + i * zoom / canvas.width, y: p.y + j * zoom / canvas.height
+		while j < img.height
+			z = x: p.x + i * zoom / img.width, y: p.y + j * zoom / img.height
 
 			n = 0
 			while ++n < iteration_max and n2(z) < 4
 				z = f(c, z)
 			if n is iteration_max
+				w = Math.sqrt(n2(z)) * 256
+				img_ctx.data[(i * 800 + j) * 4] = 255
+				img_ctx.data[(i * 800 + j) * 4 + 1] = 255
+				img_ctx.data[(i * 800 + j) * 4 + 2] = 255
+				img_ctx.data[(i * 800 + j) * 4 + 3] = 255
 				ctx.fillRect(i, j, 1, 1)
 			j++
 		i++
+		ctx.putImageData(img_ctx, 0, 0,img.width,img.height,canvas.width,canvas.height)
+	#ctx.putImageData(img_ctx, 0, 0, canvas.width, canvas.height)
 
 zoom = 1
 N = 0
@@ -41,29 +53,26 @@ draw(p, zoom, c[N])
 
 upX = upY = downX = downY = false
 
-document.addEventListener 'keyup',((e) ->
-	char = e.which || e.keyCode;
+document.addEventListener 'keypress',((e) ->
+	char = e.which || e.keyCode
 	console.log 'keypress:' + char
-	p.x += 0.1 if char is 39 # left
-	p.x -= 0.1 if char is 37 # right
-	p.y += 0.1 if char is 40 # up
-	p.y -= 0.1 if char is 38 # down
-	zoom *= 0.9 if char is 32 # down
-	zoom *= 1.1 if char is 88
-	N = N + 1 % c.length if char is 87
-	upX = true if char is 65
-	downX = true if char is 90
-	upY = true if char is 81
-	downY = true if char is 83
+
+	p.x -= 0.1 * zoom if char is 97  # a
+	p.x += 0.1 * zoom if char is 100 # d
+	p.y -= 0.1 * zoom if char is 119 # up
+	p.y += 0.1 * zoom if char is 115 # down
+
+	zoom *= 0.9 if char is 120 # x
+	zoom *= 1.1 if char is 122 # z
+
+	c[N].x += 0.01 if char is 104 # h
+	c[N].y += 0.01 if char is 106 # j
+	c[N].x -= 0.01 if char is 107 # k
+	c[N].y -= 0.01 if char is 108 # l
+
+	N = (N + 1) % c.length if char is 110 # n
+
 	ctx.fillStyle = "rgb(255,255,255)"
-	ctx.fillRect(0,0,canvas.width, canvas.height);
-	updateC()
+	ctx.fillRect 0,0,canvas.width, canvas.height
 	draw(p, zoom, c[N])
 ),false
-
-updateC = ->
-	c[N].x += 0.01 if upX
-	c[N].y += 0.01 if upY
-	c[N].x -= 0.01 if downX
-	c[N].y -= 0.01 if downY
-	upX = upY = downX = downY = false
