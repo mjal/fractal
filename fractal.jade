@@ -1,6 +1,17 @@
 doctype html5
 head
-	script(src="angular.js")
-body(ng-app)
-	canvas(style="height:200px; width: 200px;")
+	style(href="bootstrap.min.css")
+	script(src="jquery.min.js")
+	script(src="angular.min.js")
+	script(src="bootstrap.min.js")
+body(ng-app="app" ng-controller="FractaltCtrl" ng-keyup="keyPress($event.keyCode)")
+	canvas(style="height:600px; width: 1200px;margin: 0 auto;")
+	br
+	input(ng-model="x", ng-change="update()")
+	input(ng-model="y", value="{{y}}")
+	br
+	input(ng-model="a", value="{{a}}")
+	input(ng-model="b", value="{{b}}")
+	br
+	input(ng-model="iteration")
 	script(src="fractal.js")
