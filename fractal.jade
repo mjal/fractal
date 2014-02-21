@@ -1,17 +1,44 @@
 doctype html5
 head
-	style(href="bootstrap.min.css")
+	link(href="bootstrap.min.css", rel="stylesheet")
 	script(src="jquery.min.js")
 	script(src="angular.min.js")
 	script(src="bootstrap.min.js")
-body(ng-app="app" ng-controller="FractaltCtrl" ng-keyup="keyPress($event.keyCode)")
-	canvas(style="height:600px; width: 1200px;margin: 0 auto;")
-	br
-	input(ng-model="x", ng-change="update()")
-	input(ng-model="y", value="{{y}}")
-	br
-	input(ng-model="a", value="{{a}}")
-	input(ng-model="b", value="{{b}}")
-	br
-	input(ng-model="iteration")
+body(ng-app="app" ng-controller="FractaltCtrl" style="background-color: green;")
+	.container
+		canvas(style="height:60%; width: 90%;margin: 0 auto;", ng-click="zoom($event)")
+	.container
+		.col-xs-4
+			button.btn.btn-primary.btn-lg(type="button", ng-click="draw()") draw
+			| redraw
+			input(type="checkbox" ng-model="redraw")
+			ul
+				li
+					a(href="#" ng-click="mandelbrot()") Mandelbrot
+				li
+					a(href="#" ng-click="julia1()") Julia 1
+				li
+					a(href="#" ng-click="julia2()") Julia 2
+
+			br
+			input(type="number" ng-model="iteration")
+			button(ng-click="moveit('up')") +
+			button(ng-click="moveit('down')") -
+			br
+		.col-xs-4
+			input(ng-model="px")
+			button(ng-click="move('left')") +
+			button(ng-click="move('right')") -
+			br
+			input(ng-model="py")
+			button(ng-click="move('up')") +
+			button(ng-click="move('down')") -
+		.col-xs-4
+			input(ng-model="a")
+			button(ng-click="movec('left')") +
+			button(ng-click="movec('right')") -
+			br
+			input(ng-model="b")
+			button(ng-click="movec('up')") +
+			button(ng-click="movec('down')") -
 	script(src="fractal.js")
