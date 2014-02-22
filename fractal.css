@@ -1,0 +1,10 @@
+body {
+  height: 100%;
+  width: 100%;
+}
+body canvas {
+  height: 600;
+  width: 600;
+  border: 1 dotted #000;
+  margin: 0;
+}
