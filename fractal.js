@@ -151,6 +151,7 @@
       "mandelbrot2": mandelbrot2,
       "buddhabrot": buddhabrot
     };
+    $scope.methods = ["julia2", "mandelbrot2", "buddhabrot"];
     $scope.redraw = true;
     $scope.draw = function() {
       var X, Y, antialias, data, dist, dx, dy, i, j, offset, pixels, toImage, w;
@@ -207,25 +208,30 @@
       }
     };
     $scope.load = function(scene) {
-      var cpt, el, k, _ref;
-      $scope.scene = scene;
-      $scope.f = scene.f;
-      cpt = 0;
-      _ref = $scope.functions;
-      for (k in _ref) {
-        el = _ref[k];
-        cpt++;
-        if (k === scene.f) {
-          $("option[value=\"" + cpt + "\"]").attr('selected', 'selected');
-          console.log(k);
-        }
-      }
-      $scope.p = scene.p;
-      $scope.d = scene.d;
-      $scope.c = scene.c;
+      $scope.f = angular.copy(scene.f);
+      $scope.p = angular.copy(scene.p);
+      $scope.d = angular.copy(scene.d);
+      $scope.c = angular.copy(scene.c);
       $scope.iter = scene.iter;
       $scope.max = 2;
       return $scope.buddhabrot = scene.buddhabrot || 0;
+    };
+    $scope.createFractal = function(char) {
+      var scene;
+      if (char !== 13) {
+        return;
+      }
+      scene = {
+        name: $scope.newFractal,
+        f: $scope.f,
+        p: $scope.p,
+        d: $scope.d,
+        c: $scope.c,
+        iter: $scope.iter
+      };
+      $scope.scenes.push(scene);
+      $scope.newFractal = '';
+      return $scope.load(scene);
     };
     $(canvas).scroll = function(e) {
       return console.log("sceo");

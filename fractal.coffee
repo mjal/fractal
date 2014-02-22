@@ -77,6 +77,8 @@ app.controller 'FractaltCtrl', ($scope) ->
 		"mandelbrot2": mandelbrot2
 		"buddhabrot": buddhabrot
 
+	$scope.methods = ["julia2", "mandelbrot2", "buddhabrot"]
+
 	$scope.redraw = true
 
 	$scope.draw = ->
@@ -115,16 +117,16 @@ app.controller 'FractaltCtrl', ($scope) ->
 				else
 					ctx.fillStyle = "rgb(#{w},#{w},#{w})"
 					ctx.fillRect(i, j, 1, 1)
-#				if $scope.scene.buddhabrot
+#				if $scope.buddhabrot
 #					s = 0
 #					in_points = 0
-#					while ++s < $scope.scene.buddhabrot
+#					while ++s < $scope.buddhabrot
 #						z = x: X + Math.random() * dx + dx / 2, y: Y + Math.random() * dy + dy / 2
 #						n = 0
 #						while ++n < $scope.iteration and n2(z) < 4
 #							z = f($scope.c, z)
 #						in_points++ if n is $scope.iteration
-#					n = in_points * $scope.iteration / $scope.scene.buddhabrot
+#					n = in_points * $scope.iteration / $scope.buddhabrot
 
 				Y += dy
 				j++
@@ -140,20 +142,26 @@ app.controller 'FractaltCtrl', ($scope) ->
 		$scope.draw() if $scope.redraw
 
 	$scope.load = (scene) ->
-		$scope.scene = scene
-		$scope.f = scene.f
-		cpt = 0
-		for k, el of $scope.functions
-			cpt++
-			if k is scene.f
-				$("option[value=\"#{cpt}\"]").attr 'selected', 'selected'
-				console.log k
-		$scope.p = scene.p
-		$scope.d = scene.d
-		$scope.c = scene.c
+		$scope.f = angular.copy scene.f
+		$scope.p = angular.copy scene.p
+		$scope.d = angular.copy scene.d
+		$scope.c = angular.copy scene.c
 		$scope.iter = scene.iter
 		$scope.max = 2
 		$scope.buddhabrot = scene.buddhabrot || 0
+
+	$scope.createFractal = (char) ->
+		return unless char is 13
+		scene =
+			name: $scope.newFractal
+			f: $scope.f
+			p: $scope.p
+			d: $scope.d
+			c: $scope.c
+			iter: $scope.iter
+		$scope.scenes.push scene
+		$scope.newFractal = ''
+		$scope.load scene
 
 	$(canvas).scroll = (e) ->
 		console.log "sceo"
