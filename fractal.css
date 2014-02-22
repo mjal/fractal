@@ -3,8 +3,8 @@ body {
   width: 100%;
 }
 body canvas {
-  height: 600;
-  width: 600;
+  height: 400;
+  width: 400;
   border: 1 dotted #000;
   margin: 0;
 }

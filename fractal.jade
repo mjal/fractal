@@ -19,6 +19,11 @@ body(ng-app="app" ng-controller="FractaltCtrl")
 			br
 			select(ng-options="method for method in methods" ng-model="f") {{ k }}
 			br
+			select(ng-options="c for c in colorList" ng-model="color") {{ c }}
+			br
+			| inversed: 
+			input(type="checkbox" ng-model="inversed")
+			br
 			| p.x :
 			+param('p.x')
 			button(ng-click="p.x = p.x + d.x / 4; redraw()") +
@@ -60,4 +65,6 @@ body(ng-app="app" ng-controller="FractaltCtrl")
 			button(ng-click="buddhabrot = buddhabrot + 5; redraw()") -
 		.col-xs-8
 			canvas(style="", ng-click="zoom($event)")
+			.load_time
+				p {{ load_time}} ms
 	script(src="fractal.js")
