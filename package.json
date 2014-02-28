@@ -1,0 +1,25 @@
+{
+  "name": "fractal",
+  "version": "0.0.0",
+  "description": "",
+  "main": "public/index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mjal/fractal"
+  },
+  "author": "mjal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mjal/fractal/issues"
+  },
+  "homepage": "https://github.com/mjal/fractal",
+  "devDependencies": {
+    "grunt": "^0.4.2",
+    "grunt-contrib-stylus": "^0.13.1",
+    "grunt-contrib-coffee": "^0.10.1",
+    "grunt-contrib-jade": "^0.10.0"
+  }
+}
