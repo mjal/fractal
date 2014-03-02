@@ -26,16 +26,16 @@
       j = 0;
       X = scene.p.x - scene.d.x / 2;
       while (j < w) {
+        index = (i * w + j) * 4;
         dist = julia({
           x: X,
           y: Y
         }, scene.c, scene.max, scene.iter);
         v = 255 - Math.floor(255 * dist / scene.iter);
-        index = (i * w + j) * 4;
         buffer[index + 0] = v * scene.color[0];
         buffer[index + 1] = v * scene.color[1];
         buffer[index + 2] = v * scene.color[2];
-        buffer[index + 3] = v;
+        buffer[index + 3] = 255;
         X += dx;
         j++;
       }

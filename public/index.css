@@ -1,4 +1,5 @@
-body{height:100%;width:100%;}
+body{height:100%;width:100%;background-color:#000;}
+body h2,body h3,body h4{color:#fff}
 body canvas{height:100%;width:100%;margin:0}
 body .small-pad{padding-left:6px;padding-right:3px}
 body .row-btn{padding-top:4px;padding-bottom:4px;margin:auto}
