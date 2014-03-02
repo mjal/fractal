@@ -28,7 +28,7 @@ body(ng-app="app" ng-controller="FractaltCtrl")
       select.form-control(
         ng-model="scene_color"
         ng-options="color for color in keys(colors)"
-        ng-change="draw()")
+        ng-change="set_color(); draw()")
       .row
         h4.text-center Position
       .row
