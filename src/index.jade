@@ -3,13 +3,11 @@ mixin param(model)
 
 doctype html5
 head
-  link(rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css")
-  link(rel="stylesheet" href="../bower_components/bootstrap-select/bootstrap-select.min.css")
+  link(rel="stylesheet" href="bootstrap.css")
 
-  script(src="../bower_components/jquery/dist/jquery.min.js")
-  script(src="../bower_components/bootstrap/dist/js/bootstrap.min.js")
-  script(src="../bower_components/bootstrap-select/bootstrap-select.min.js")
-  script(src="../bower_components/angular/angular.min.js")
+  script(src="jquery.js")
+  script(src="bootstrap.js")
+  script(src="angular.js")
 
   link(rel="stylesheet" href="index.css")
   script(src="index.js")
@@ -84,9 +82,9 @@ body(ng-app="app" ng-controller="FractaltCtrl")
         .col-md-6.col-xs-4
           +param('scene.iter')
         .col-md-6.col-xs-8.small-pad
-          button(ng-click="scene.iter = scene.iter * 11/10; draw()").btn.btn-default
+          button(ng-click="scene.iter = floor(scene.iter * 11/10); draw()").btn.btn-default
             span.glyphicon.glyphicon-arrow-up
-          button(ng-click="scene.iter = scene.iter * 10/11; draw()").btn.btn-default
+          button(ng-click="scene.iter = floor(scene.iter * 10/11); draw()").btn.btn-default
             span.glyphicon.glyphicon-arrow-down
       .row.row-btn
         .btn-group

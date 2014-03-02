@@ -1,24 +1,11 @@
 (function() {
-  var app, julia;
-
-  julia = function(z, c, max, iter) {
-    var max2, xx, yy;
-    max2 = max * max;
-    xx = z.x * z.x;
-    yy = z.y * z.y;
-    while (xx + yy < max2 && iter--) {
-      z.y = 2 * z.x * z.y + c.y;
-      z.x = xx - yy + c.x;
-      xx = z.x * z.x;
-      yy = z.y * z.y;
-    }
-    return iter;
-  };
+  var app;
 
   app = angular.module('app', []);
 
   app.controller('FractaltCtrl', function($scope) {
     var worker;
+    $scope.floor = Math.floor;
     $scope.keys = function(obj) {
       var key, val, _results;
       _results = [];
@@ -36,8 +23,8 @@
           y: 0
         },
         d: {
-          x: 3,
-          y: 3
+          x: 4,
+          y: 4
         },
         c: {
           x: -0.8,

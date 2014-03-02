@@ -1,16 +1,7 @@
-julia = (z, c, max, iter) ->
-  max2 = max*max
-  xx = z.x * z.x
-  yy = z.y * z.y
-  while xx+yy < max2 and iter--
-    z.y = 2 * z.x * z.y + c.y
-    z.x = xx - yy + c.x
-    xx = z.x * z.x
-    yy = z.y * z.y
-  iter
-
 app = angular.module('app', [])
 app.controller 'FractaltCtrl', ($scope) ->
+
+  $scope.floor = Math.floor
 
   $scope.keys = (obj) ->
     key for key, val of obj
@@ -19,7 +10,7 @@ app.controller 'FractaltCtrl', ($scope) ->
     "Scene 1":
       f: "julia"
       p: {x: 0, y: 0}
-      d: {x: 3, y: 3}
+      d: {x: 4, y: 4}
       c: {x: -0.8, y: 0.156}
       max: 2
       iter: 60
