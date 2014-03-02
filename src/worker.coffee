@@ -2,7 +2,7 @@ julia = (z, c, max, iter) ->
   max2 = max*max
   xx = z.x * z.x
   yy = z.y * z.y
-  while xx+yy < max2 and iter--
+  while xx+yy < max2 and --iter
     z.y = 2 * z.x * z.y + c.y
     z.x = xx - yy + c.x
     xx = z.x * z.x
@@ -31,7 +31,7 @@ draw = (scene, w, h)->
       buffer[index + 0] = v * scene.color[0]
       buffer[index + 1] = v * scene.color[1]
       buffer[index + 2] = v * scene.color[2]
-      buffer[index + 3] = 255 # try 0
+      buffer[index + 3] = v
       X += dx
       j++
     Y += dy
