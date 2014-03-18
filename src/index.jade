@@ -27,6 +27,26 @@ body(ng-app="app" ng-controller="FractaltCtrl")
         ng-model="scene_color"
         ng-options="color for color in keys(colors)"
         ng-change="set_color(); draw()")
+
+      .row
+        h4.text-center Type
+      .row
+        .col-md-6.col-xs-4
+          +param('scene.c.x')
+        .col-md-6.col-xs-8.small-pad
+          button(ng-click="scene.c.x = scene.c.x - 0.01; draw()").btn.btn-default
+            span.glyphicon.glyphicon-arrow-left
+          button(ng-click="scene.c.x = scene.c.x + 0.01; draw()").btn.btn-default
+            span.glyphicon.glyphicon-arrow-right
+      .row
+        .col-md-6.col-xs-4
+          +param('scene.c.y')
+        .col-md-6.col-xs-8.small-pad
+          button(ng-click="scene.c.y = scene.c.y + 0.01; draw()").btn.btn-default
+            span.glyphicon.glyphicon-arrow-up
+          button(ng-click="scene.c.y = scene.c.y - 0.01; draw()").btn.btn-default
+            span.glyphicon.glyphicon-arrow-down
+
       .row
         h4.text-center Position
       .row
@@ -55,25 +75,6 @@ body(ng-app="app" ng-controller="FractaltCtrl")
           button(ng-click="scene.d.x = scene.d.x * 3/2; scene.d.y = scene.d.y * 3/2; draw()").btn.btn-default
             span.glyphicon.glyphicon-arrow-up
           button(ng-click="scene.d.x = scene.d.x * 2/3; scene.d.y = scene.d.y * 2/3; draw()").btn.btn-default
-            span.glyphicon.glyphicon-arrow-down
-
-      .row
-        h4.text-center Type
-      .row
-        .col-md-6.col-xs-4
-          +param('scene.c.x')
-        .col-md-6.col-xs-8.small-pad
-          button(ng-click="scene.c.x = scene.c.x - 0.01; draw()").btn.btn-default
-            span.glyphicon.glyphicon-arrow-left
-          button(ng-click="scene.c.x = scene.c.x + 0.01; draw()").btn.btn-default
-            span.glyphicon.glyphicon-arrow-right
-      .row
-        .col-md-6.col-xs-4
-          +param('scene.c.y')
-        .col-md-6.col-xs-8.small-pad
-          button(ng-click="scene.c.y = scene.c.y + 0.01; draw()").btn.btn-default
-            span.glyphicon.glyphicon-arrow-up
-          button(ng-click="scene.c.y = scene.c.y - 0.01; draw()").btn.btn-default
             span.glyphicon.glyphicon-arrow-down
 
       .row
