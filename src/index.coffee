@@ -78,7 +78,7 @@ app.controller 'FractaltCtrl', ($scope) ->
   $scope.set_scene()
   $scope.set_color()
 
-  worker = new Worker 'worker.js'
+  worker = new Worker 'lib/worker.js'
 
   $scope.draw = ->
     canvas = document.querySelector 'canvas'

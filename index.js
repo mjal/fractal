@@ -154,7 +154,7 @@
     $scope.scene_color = "black/white";
     $scope.set_scene();
     $scope.set_color();
-    worker = new Worker('worker.js');
+    worker = new Worker('lib/worker.js');
     $scope.draw = function() {
       var canvas;
       canvas = document.querySelector('canvas');
