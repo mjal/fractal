@@ -9,35 +9,29 @@ julia = (z, c, max, iter) ->
     yy = z.y * z.y
   iter
 
-draw = (scene, w, h)->
+draw = (scene, w, h) ->
+  buffer = new Uint8Array(new ArrayBuffer(4 * w * h))
 
   dx = scene.d.x / w
   dy = scene.d.y / h
 
-  buffer = new Uint8Array(new ArrayBuffer(4 * w * h))
-
-  i = 0
   Y = scene.p.y - scene.d.y / 2
-  while i < h
-    j = 0
+  for i in [0..h]
     X = scene.p.x - scene.d.x / 2
-    while j < w
+    for j in [0..w]
+      dist = scene.iter - julia({x:X,y:Y}, scene.c, scene.max, scene.iter)
+      delta = Math.floor(255 * dist / scene.iter)
 
       index = (i * w + j) * 4
-
-      dist = julia({x:X,y:Y}, scene.c, scene.max, scene.iter)
-      v = 255 - Math.floor(255 * dist / scene.iter)
-      buffer[index + 0] = v * scene.color[0]
-      buffer[index + 1] = v * scene.color[1]
-      buffer[index + 2] = v * scene.color[2]
+      buffer[index + 0] = delta * scene.color[0]
+      buffer[index + 1] = delta * scene.color[1]
+      buffer[index + 2] = delta * scene.color[2]
       buffer[index + 3] = 255
       X += dx
-      j++
     Y += dy
-    i++
-  buffer
+  return buffer
 
-self.addEventListener 'message',((e) ->
+self.addEventListener 'message', ((e) ->
   buffer = draw(e.data.scene, e.data.w, e.data.h)
   self.postMessage {buffer: buffer, w: e.data.w, h: e.data.h}, [buffer.buffer]
 ), false

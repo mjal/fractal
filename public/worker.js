@@ -16,31 +16,27 @@
   };
 
   draw = function(scene, w, h) {
-    var X, Y, buffer, dist, dx, dy, i, index, j, v;
+    var X, Y, buffer, delta, dist, dx, dy, i, index, j, _i, _j;
+    buffer = new Uint8Array(new ArrayBuffer(4 * w * h));
     dx = scene.d.x / w;
     dy = scene.d.y / h;
-    buffer = new Uint8Array(new ArrayBuffer(4 * w * h));
-    i = 0;
     Y = scene.p.y - scene.d.y / 2;
-    while (i < h) {
-      j = 0;
+    for (i = _i = 0; 0 <= h ? _i <= h : _i >= h; i = 0 <= h ? ++_i : --_i) {
       X = scene.p.x - scene.d.x / 2;
-      while (j < w) {
-        index = (i * w + j) * 4;
-        dist = julia({
+      for (j = _j = 0; 0 <= w ? _j <= w : _j >= w; j = 0 <= w ? ++_j : --_j) {
+        dist = scene.iter - julia({
           x: X,
           y: Y
         }, scene.c, scene.max, scene.iter);
-        v = 255 - Math.floor(255 * dist / scene.iter);
-        buffer[index + 0] = v * scene.color[0];
-        buffer[index + 1] = v * scene.color[1];
-        buffer[index + 2] = v * scene.color[2];
+        delta = Math.floor(255 * dist / scene.iter);
+        index = (i * w + j) * 4;
+        buffer[index + 0] = delta * scene.color[0];
+        buffer[index + 1] = delta * scene.color[1];
+        buffer[index + 2] = delta * scene.color[2];
         buffer[index + 3] = 255;
         X += dx;
-        j++;
       }
       Y += dy;
-      i++;
     }
     return buffer;
   };
