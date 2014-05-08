@@ -4,16 +4,16 @@ module.exports = (grunt) ->
     coffee:
       compile:
         files:
-          'public/index.js': 'src/index.coffee'
-          'public/worker.js': 'src/worker.coffee'
+          'index.js': 'src/index.coffee'
+          'worker.js': 'src/worker.coffee'
     jade:
       compile:
         files:
-          'public/index.html': 'src/index.jade'
+          'index.html': 'src/index.jade'
     stylus:
       compile:
         files:
-          'public/index.css': 'src/index.styl'
+          'index.css': 'src/index.styl'
     watch:
       scripts:
         files: ['src/*'],
